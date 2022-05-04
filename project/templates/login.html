@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns">
+    <div class="column box is-6 is-offset-3 p-0 has-background-success">
+        <div class="column box is-8 noroundright">
+            <h3 class="title pb-6">Login To Continue</h3>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="/login">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="email" name="email" placeholder="Email" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="field pb-3">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

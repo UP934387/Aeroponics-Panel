@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<div class="columns">
+    <div class="column is-4 is-offset-2 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Update Email</h3>
+            <form method="POST" action="/profile/updateemail">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="email" name="email" placeholder="New Email" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Update Email</button>
+            </form>
+        </div>
+        <div class="box is-hidden-touch">
+            <h3 class="title pb-3">Delete Account</h3>
+            <form method="POST" action="/profile/deleteaccount">
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="Confirm Password To Delete">
+                    </div>
+                </div>
+
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Delete Account</button>
+            </form>
+        </div>
+    </div>
+    <div class="p-1"> </div>
+    <div class="column is-4 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Update Password</h3>
+            <form method="POST" action="/profile/updatepassword">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="old-password" placeholder="Old Password" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="new-password" placeholder="New Password">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="confirm-new-password" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Update Password</button>
+            </form>
+        </div>
+        <div class="box is-hidden-desktop">
+            <h3 class="title pb-3">Delete Account</h3>
+            <form method="POST" action="/profile/deleteaccount">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="Confirm Password To Delete">
+                    </div>
+                </div>
+    
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Delete Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

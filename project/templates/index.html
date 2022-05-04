@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="columns">
+    <div class="column is-9 is-offset-1 is-transparent p-0">
+      {%- for id, name in containers %}
+        <a class="box" href="{{ url_for('container.containerpage', id=id) }}">
+            <h3 class="title has-text-left">{{ name }}</h3>
+        </a>
+        {%- endfor %}
+    </div>
+</div>
+{% endblock %}

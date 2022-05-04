@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.0.24"
+  },
+  "dependencies": {
+    "bulma": "^0.9.3",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.12.6"
+  }
+}

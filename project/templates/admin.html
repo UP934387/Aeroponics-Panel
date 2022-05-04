@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<div class="columns">
+    <div class="column is-4 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">System Overview</h3>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Pair User to Container</h3>
+            <form method="POST" action="/admin/containerpairuser">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="container" placeholder="Container Name" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="email" placeholder="Users Email">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Pair User to Container</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Remove User From Container</h3>
+            <form method="POST" action="/admin/containerremoveuser">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="container" placeholder="Container Name" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="email" placeholder="Users Email">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Remove User From Container</button>
+            </form>
+        </div>
+    </div>
+    <div class="p-1"> </div>
+    <div class="column is-4 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Add Container</h3>
+            <form method="POST" action="/admin/addcontainer">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="container" placeholder="Container Name" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="serial" placeholder="Serial Port">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Add Container</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Edit Container</h3>
+            <form method="POST" action="/admin/editcontainer">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="old_container" placeholder="Old Container Name" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="container" placeholder="New Container Name" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="serial" placeholder="New Serial Port">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Add Container</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Delete Container</h3>
+            <form method="POST" action="/admin/deletecontainer">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="container" placeholder="Container Name to Remove">
+                    </div>
+                </div>
+    
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Delete Container</button>
+            </form>
+        </div>
+    </div>
+    <div class="p-1"> </div>
+    <div class="column is-4 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Create New User</h3>
+            <form method="POST" action="/admin/createuser">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="email" name="email" placeholder="Email" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="text" name="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Create New User</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Change User Password</h3>
+            <form method="POST" action="/admin/edituserpassword">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="email" name="email" placeholder="Email" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="password" placeholder="New Password">
+                    </div>
+                </div>
+
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="password" name="confirm-password" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Change User Password</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Delete User</h3>
+            <form method="POST" action="/admin/deleteuser">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" type="email" name="email" placeholder="Email of user to Remove">
+                    </div>
+                </div>
+    
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Delete Users Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

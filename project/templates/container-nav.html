@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<section class="hero is-primary is-fullheight">
+
+    <div class="hero-head is-link navbarsub">
+        <nav class="is-link navbar navbarsub">
+            <div>
+                <a role="button" class="navbar-burger" id="navbarBurgerSub"  aria-label="menu" aria-expanded="false" data-target="navbarSub">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            
+            <div class="container nominheight">
+                <div id="navbarSub" class="navbar-menu navbarsub">
+                    <div class="navbar-start">
+                        <a class="navbar-item ">
+                            <strong>
+                                {{container.name}}
+                            </strong>
+                        </a>
+                        <a href="{{ url_for('container.containerpage', id=id) }}" class="navbar-item">
+                            Monitor
+                        </a>
+                        <a href="{{ url_for('main.index') }}" class="navbar-item">
+                            Schedule
+                        </a>
+                        <a href="{{ url_for('container.control', id=id) }}" class="navbar-item">
+                            Control
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body is-align-items-flex-start">
+        <div class="container has-text-centered">
+           {% block content2 %}
+           {% endblock %}
+        </div>
+    </div>
+</section>
+
+<script> 
+    $(document).ready(function() {
+    
+    // Check for click events on the navbar burger icon
+    $("#navbarBurgerSub").click(function() {
+    
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $("#navbarBurgerSub").toggleClass("is-active");
+        $("#navbarSub").toggleClass("is-active");
+    
+    });
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "container-nav.html" %}
+
+{% block content2 %}
+
+{%- for nid, name, desc in notifications %}
+    <div class="notification is-warning">
+        <form method="POST" action="/container/{{id}}/notification/{{nid}}/seen">
+            <div class="columns">
+                <div class=" is-uppercase column">
+                    <strong>{{name}} </strong>
+                </div> 
+                <div class="column">
+                    {{desc}}
+                </div> 
+                <div class="is-uppercase column">
+                    <button class="button is-danger">
+                        <span>Dismiss</span>
+                        <span class="icon is-small">
+                        <i class="fas fa-times"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{%- endfor %}
+<div class="columns">
+    <div class="column is-5 is-offset-1 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Temperature Graph</h3>
+            <canvas id="TemperatureChart"></canvas>
+            
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Ec Graph</h3>
+            <canvas id="EcChart"></canvas>
+            
+        </div>
+    </div>
+    <div class="p-1"> </div>
+    <div class="column is-5 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Pressure Graph</h3>
+            <canvas id="PressureChart"></canvas>
+            
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Ph Graph</h3>
+            <canvas id="PhChart"></canvas>
+        
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getJSON("{{ url_for('container.temperaturedata', id=id) }}", function(data) {
+    var lineChart = new Chart(document.getElementById("TemperatureChart").getContext("2d"), {
+        type: "line",
+        data: { 
+            labels: data.Labels,
+            datasets:[{
+                label: 'Celcius',
+                data: data.Data,
+                backgroundColor: 'rgba(0, 119, 204, 0.3)'
+            }]
+       },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }
+            }
+        }
+    })
+})
+</script>
+
+<script>
+    $.getJSON("{{ url_for('container.phdata', id=id) }}", function(data) {
+    var lineChart = new Chart(document.getElementById("PhChart").getContext("2d"), {
+        type: "line",
+        data: { 
+            labels: data.Labels,
+            datasets:[{
+                label: 'Ph Value',
+                data: data.Data,
+                backgroundColor: 'rgba(0, 119, 204, 0.3)'
+            }]
+       },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }
+            }
+        }
+    })
+})
+</script>
+
+<script>
+    $.getJSON("{{ url_for('container.pressuredata', id=id) }}", function(data) {
+    var lineChart = new Chart(document.getElementById("PressureChart").getContext("2d"), {
+        type: "line",
+        data: { 
+            labels: data.Labels,
+            datasets:[{
+                label: 'PSI',
+                data: data.Data,
+                backgroundColor: 'rgba(0, 119, 204, 0.3)'
+            }]
+       },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        autoSkip: true,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }
+            }
+        }
+    })
+})
+</script>
+
+<script>
+    $.getJSON("{{ url_for('container.ecdata', id=id) }}", function(data) {
+    var lineChart = new Chart(document.getElementById("EcChart").getContext("2d"), {
+        type: "line",
+        data: { 
+            labels: data.Labels,
+            datasets:[{
+                label: 'Ec Value',
+                data: data.Data,
+                backgroundColor: 'rgba(0, 119, 204, 0.3)'
+            }]
+       },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }
+            }
+        }
+    })
+})
+</script>
+{% endblock %}

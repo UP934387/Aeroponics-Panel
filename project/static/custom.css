@@ -1,0 +1,12 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title {
+    color: #000 !important; 
+  }
+
+.input {
+    color: #000 !important; 
+    background-color: #C4C4C4;
+}

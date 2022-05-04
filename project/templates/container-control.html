@@ -1,0 +1,87 @@
+{% extends "container-nav.html" %}
+
+{% block content2 %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<div class="columns">
+    <div class="column is-5 is-offset-1 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Relay 1</h3>
+            <form method="POST" action="/container/{{id}}/relay/1">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Relay 2</h3>
+            <form method="POST" action="/container/{{id}}/relay/2">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Relay 3</h3>
+            <form method="POST" action="/container/{{id}}/relay/3">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+    </div>
+    <div class="p-1"> </div>
+    <div class="column is-5 is-transparent p-0">
+        <div class="box">
+            <h3 class="title pb-3">Relay 4</h3>
+            <form method="POST" action="/container/{{id}}/relay/4">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Relay 5</h3>
+            <form method="POST" action="/container/{{id}}/relay/5">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+        <div class="box">
+            <h3 class="title pb-3">Relay 6</h3>
+            <form method="POST" action="/container/{{id}}/relay/6">
+                <div class="field pb-3">
+                    <div class="control">
+                        <input class="input is-medium has-background-primary" min="0" type="number" name="relay-time" placeholder="Seconds" autofocus="">
+                    </div>
+                </div>
+                <button class="button is-rounded is-success is-medium is-fullwidth ">Run</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
