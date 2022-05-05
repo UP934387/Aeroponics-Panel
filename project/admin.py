@@ -281,6 +281,13 @@ def containerpairuser():
     user = User.query.filter(func.lower(User.email) == func.lower(email)).first()
     container = Container.query.filter(func.lower(Container.name) == func.lower(container_name)).first()
 
+    if user is None:
+        flash('User does not exist')
+        return redirect(url_for('admin.adminpage'))
+
+    if container is None:
+        flash('Container does not exist')
+        return redirect(url_for('admin.adminpage'))
     # query the usercontainer record for the id of user and the container that will be added to ensure
     # its not already added
     pair = UserContainer.query.filter(UserContainer.userId == user.id).filter(UserContainer.containerId == container.id).first()
