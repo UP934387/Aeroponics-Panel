@@ -1,8 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash ,jsonify,json
-from flask_login import login_required, current_user, logout_user
-from sqlalchemy import func
-from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User, UserContainer,Container,Sensor, Notification
+from flask import Blueprint, render_template, redirect, url_for, request ,jsonify
+from flask_login import login_required, current_user
+from .models import UserContainer,Container,Sensor, Notification
 from .serialcontrol import serialcom
 from . import db
 
@@ -137,8 +135,6 @@ def control(id):
     container = Container.query.filter(Container.id == id).first()
 
     return render_template('container-control.html', container = container, id = id)
-
-
 
 @container.route('/<int:id>/relay/<int:rid>', methods=['POST'])
 @login_required

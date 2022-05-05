@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_required, current_user, logout_user
+from flask_login import login_required, current_user
 from sqlalchemy import func
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from .models import User, UserContainer,Container
 from . import db
 
@@ -13,7 +13,7 @@ def adminpage():
     isAdmin = current_user.admin
     if not isAdmin:
         # user is not an admin cannot use this route
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('admin.html')
 
@@ -24,7 +24,7 @@ def addcontainer():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     container_name = request.form.get('container')
     container_port = request.form.get('serial')
@@ -64,7 +64,7 @@ def editcontainer():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
         
     container_old_name = request.form.get('old_container')
     container_name = request.form.get('container')
@@ -124,7 +124,7 @@ def deletecontainer():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
         
     container_name = request.form.get('container')
 
@@ -151,7 +151,7 @@ def createuser():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     email = request.form.get('email')
     username = request.form.get('username')
@@ -171,7 +171,7 @@ def createuser():
         return redirect(url_for('admin.adminpage'))
 
     # Another user already uses this email address if this is not None
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter(func.lower(User.email) == func.lower(email)).first()
 
     # if the user exists, reject the new account
     if user: 
@@ -197,7 +197,7 @@ def edituserpassword():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     email = request.form.get('email')
     new_password = request.form.get('password')
@@ -244,7 +244,7 @@ def deleteuser():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     email = request.form.get('email')
 
@@ -264,7 +264,7 @@ def containerpairuser():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     container_name = request.form.get('container')
     email = request.form.get('email')
@@ -295,7 +295,6 @@ def containerpairuser():
     db.session.commit()
     return redirect(url_for('admin.adminpage'))
 
-
 @admin.route('/containerremoveuser', methods=['POST'])
 @login_required
 def containerremoveuser():
@@ -303,7 +302,7 @@ def containerremoveuser():
     if not isAdmin:
         # user is not an admin cannot use this route
         flash('Unauthorized.')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
 
     container_name = request.form.get('container')
     email = request.form.get('email')
