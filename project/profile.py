@@ -40,7 +40,7 @@ def updateemail():
         return redirect(url_for('profile.profilepage'))
 
     # get the user record, update the email, commit back to db
-    cur_user = User.query.filter(func.lower(User.email) == func.lower(email)).first()
+    cur_user = User.query.filter(func.lower(User.email) == func.lower(current_user.email)).first()
     cur_user.email = email
     db.session.commit()
     logout_user()
@@ -102,7 +102,7 @@ def deleteaccount():
         return redirect(url_for('profile.profilepage'))
 
     #delete the user
-    User.query.filter(func.lower(User.email) == func.lower(current_user.email)).delete()
+    User.query.filter(User.id == current_user.id).delete()
     db.session.commit()
     logout_user()
     return redirect(url_for('auth.login'))

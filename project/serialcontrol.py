@@ -81,6 +81,7 @@ def serialcom(port, command):
         ser = serial.Serial(port=port, timeout=3)
         # encode to bytes
         ser.write(command.encode()) 
+        print(command)
         # read new line, strip newline, decode to ascii
         buffer = ser.readline().strip().decode('ascii')
         print(buffer)

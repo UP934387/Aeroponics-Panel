@@ -23,6 +23,10 @@ def containerpage(id):
                             for notification in notifications]
     
     container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
     return render_template('container.html', container = container, 
                             id = id, notifications = packed_notifications)
 
@@ -35,7 +39,16 @@ def seennotification(id,nid):
         # if user is not paired to container and not admin go back to main page
         return redirect(url_for('main.index'))
 
+    container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
+
     notification = Notification.query.filter(Notification.id == nid).first()
+    if notification is None:
+        # invalid container go back to main page
+        return redirect(url_for('container.containerpage',container = container, id = id))
     notification.seen = True
     db.session.commit()
     return redirect(url_for('container.containerpage',container = container, id = id))
@@ -49,11 +62,18 @@ def phdata(id):
         # if user is not paired to container and not admin go back to main page
         return redirect(url_for('main.index'))
 
+    container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
+
     phdataArray = Sensor.query.filter(Sensor.containerId == id).filter(
                 Sensor.unit == "PH").order_by(Sensor.id.desc()).limit(50).all()
 
     labels = []
     data = []
+    
 
     for phdata in phdataArray:
         labels.append(phdata.recordedTime.strftime("%m/%d/%y %H:%M:%S"))
@@ -68,6 +88,12 @@ def ecdata(id):
             UserContainer.containerId == id).first()
     if pair is None and not current_user.admin:
         # if user is not paired to container and not admin go back to main page
+        return redirect(url_for('main.index'))
+
+    container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
         return redirect(url_for('main.index'))
 
     ecdataArray = Sensor.query.filter(Sensor.containerId == id).filter(
@@ -91,6 +117,12 @@ def temperaturedata(id):
         # if user is not paired to container and not admin go back to main page
         return redirect(url_for('main.index'))
 
+    container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
+
     tempdataArray = Sensor.query.filter(Sensor.containerId == id).filter(
                 Sensor.unit == "TEMP").order_by(Sensor.id.desc()).limit(50).all()
 
@@ -110,6 +142,12 @@ def pressuredata(id):
             UserContainer.containerId == id).first()
     if pair is None and not current_user.admin:
         # if user is not paired to container and not admin go back to main page
+        return redirect(url_for('main.index'))
+
+    container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
         return redirect(url_for('main.index'))
 
     psidataArray = Sensor.query.filter(Sensor.containerId == id).filter(
@@ -132,7 +170,12 @@ def control(id):
     if pair is None and not current_user.admin:
         # if user is not paired to container and not admin go back to main page
         return redirect(url_for('main.index'))
+
     container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
 
     return render_template('container-control.html', container = container, id = id)
 
@@ -145,6 +188,10 @@ def relaycontrol(id,rid):
         # if user is not paired to container and not admin go back to main page
         return redirect(url_for('main.index'))
     container = Container.query.filter(Container.id == id).first()
+
+    if container is None:
+        # invalid container go back to main page
+        return redirect(url_for('main.index'))
 
     timer = request.form.get('relay-time')
 

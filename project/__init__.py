@@ -35,7 +35,7 @@ def create_app():
         thread = threading.Timer(SENSOR_POLL, readsensors, [app])
         thread.start() 
 
-    sensorsStart(app)
+    #sensorsStart(app)
     atexit.register(interrupt)
 
     @login_manager.user_loader
